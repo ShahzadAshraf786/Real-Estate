@@ -15,5 +15,5 @@ mongoose.connect(process.env.MONGO_URL)
 const app= express();
 
 app.listen(3000, ()=>{
-    console.log("Server is running...fcf.")
+    console.log("Server is running......")
 })
