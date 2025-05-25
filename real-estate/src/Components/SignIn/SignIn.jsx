@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom';
 
 
-const SignUp = () => {
-  const [formdata, setformdata] = useState({})
+const SignIn = () => {
+const [formdata, setformdata] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading,setloading]=useState(false);
   const [error,seterror]=useState(null);
@@ -20,13 +20,15 @@ const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await fetch("/api/signup/signup",
+      const res = await fetch("/api/signin/signin", 
+
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(formdata)
+          body: JSON.stringify(formdata),
+          credentials: 'include'
 
         });
       const data = await res.json();
@@ -38,7 +40,7 @@ return;
       }
       setloading(false);
       seterror(null);
-       navigate('/sign-in');
+      navigate('/');
 
     } catch (error) {
       console.error("API Error:", error);
@@ -52,15 +54,10 @@ return;
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#d8cccc] px-4">
       <div className="w-full max-w-md bg-[#555252] p-8 rounded-2xl shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-white mb-6">Create Account</h2>
+        <h2 className="text-2xl font-bold text-center text-white mb-6">Sign In</h2>
         <form className="space-y-7 " onSubmit={handleSubmit}>
 
-          <input type="text"
-            placeholder='username'
-            className='bg-white w-full p-4 rounded-2xl '
-            id='username'
-            onChange={handleChange}
-          />
+          
 
           <input type="text"
             placeholder='email'
@@ -89,7 +86,7 @@ return;
             disabled={loading}
             className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 cursor-pointer"
           >
-{loading?"Loading...":"Sign Up"}
+{loading?"Loading...":"Sign In"}
           </button>
         </form>
 
@@ -101,9 +98,9 @@ return;
 
 
         <p className="text-lg text-center text-white mt-4">
-          Already have an account?{" "}
-          <Link to={'/sign-in'}  className="text-white hover:underline">
-          Sign in
+          Dont have an account?{" "}
+          <Link to={'/sign-up'}  className="text-white hover:underline">
+          Sign Up
           </Link> 
         </p>
 
@@ -113,4 +110,4 @@ return;
   );
 };
 
-export default SignUp;
+export default SignIn;
