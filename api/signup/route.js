@@ -21,8 +21,8 @@ router.post("/signup",
         return res.json("User created sucessfuly!",{status:201})
     }
     catch(error){
-        // return req.json({error:error.message},{status:500})
-        res.status(500).json(error.message);
+        return res.json({error:error.message},{status:500})
+        // res.status(500).json(error.message);
     } 
     
 }
